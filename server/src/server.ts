@@ -12,6 +12,7 @@ import { authenticateToken } from './services/auth-service.js';
 // Import the two parts of a GraphQL schema
 import { typeDefs, resolvers } from './schemas/index.js';
 import db from './config/connection.js';
+import { errorHandler } from './middleware/error-handler.js';
 
 
 const PORT = process.env.PORT || 3001;
@@ -38,6 +39,7 @@ const startApolloServer = async () => {
 
   if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/dist')));
+    app.use(errorHandler);
 
     app.get('*', (_req: Request, res: Response) => {
       res.sendFile(path.join(__dirname, '../client/dist/index.html'));
