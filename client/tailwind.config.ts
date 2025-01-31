@@ -5,7 +5,23 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'cream': '#FAF3E1',
+        'emerald': {
+          800: '#0F4C44',
+        },
+        'purple': {
+          700: '#7B2869',
+        },
+      },
+      dropShadow: {
+        'lg': '0 4px 4px rgba(0, 0, 0, 0.25)',
+      },
+      fontFamily: {
+        'serif': ['Georgia', 'serif'],
+      },
+    },
   },
   plugins: [],
 } 
