@@ -8,6 +8,7 @@ export default {
     extend: {
       colors: {
         'cream': '#FAF3E1',
+        'title-cream': '#FEFAE0',
         'emerald': {
           800: '#0F4C44',
         },
@@ -19,7 +20,7 @@ export default {
         'lg': '0 4px 4px rgba(0, 0, 0, 0.25)',
       },
       fontFamily: {
-        'serif': ['Georgia', 'serif'],
+        'serif': ['"Source Serif Pro"', 'serif'],
       },
     },
   },
