@@ -7,6 +7,7 @@ interface IUser extends Document {
   email: string;
   password: string;
   savedFeelings: IFeeling[];
+  wellbeingTip: string;
   isCorrectPassword(password: string): Promise<boolean>;
 }
 
@@ -29,6 +30,10 @@ const userSchema = new Schema<IUser>(
     },
     // set savedBooks to be an array of data that adheres to the bookSchema
     savedFeelings: [feelingSchema],
+    wellbeingTip: {
+      type: String,
+      required: false
+    },
   },
   // set this to use virtual below
   {
