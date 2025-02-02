@@ -1,16 +1,33 @@
 @import "tailwindcss";
+@import "./styles/home.css";
+@import "./styles/login.css";
+@import "./styles/feelings.css";
+@import "./styles/components.css";
 
-body {
-  font-family: 'Rubik', sans-serif;
+:root {
+  --background: #FEFCEA;
+  --primary: #894990;
+  --secondary: #0D4F42;
 }
 
-h1,
+body {
+  font-family: Source Serif Pro, sans-serif;
+}
+
+h1 {
+  @apply text-[#0F4C44] text-6xl font-bold mb-24;
+  font-family: 'Playfair Display, serif';
+}
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: 'Rubik Mono One', sans-serif;
+  font-family: Source Serif Pro, sans-serif;
+}
+
+.emoji {
+  @apply w-36 h-36;
 }
 
 .small {

@@ -7,12 +7,12 @@ import worriedIcon from '../assets/worried.png';
 import angryIcon from '../assets/angry.png';
 
 const feelings = [
-  { type: 'happy', label: 'Happy', icon: happyIcon, color: 'text-purple-700' },
-  { type: 'sad', label: 'Sad', icon: sadIcon, color: 'text-purple-700' },
-  { type: 'tired', label: 'Tired', icon: tiredIcon, color: 'text-purple-700' },
-  { type: 'calm', label: 'Calm', icon: calmIcon, color: 'text-purple-700' },
-  { type: 'worried', label: 'Worried', icon: worriedIcon, color: 'text-purple-700' },
-  { type: 'angry', label: 'Angry', icon: angryIcon, color: 'text-purple-700' },
+  { type: 'happy', label: 'Happy', icon: happyIcon, color: 'text-emerald-800' },
+  { type: 'sad', label: 'Sad', icon: sadIcon, color: 'text-emerald-800' },
+  { type: 'tired', label: 'Tired', icon: tiredIcon, color: 'text-emerald-800' },
+  { type: 'calm', label: 'Calm', icon: calmIcon, color: 'text-emerald-800' },
+  { type: 'worried', label: 'Worried', icon: worriedIcon, color: 'text-emerald-800' },
+  { type: 'angry', label: 'Angry', icon: angryIcon, color: 'text-emerald-800' },
 ];
 
 const Home = () => {
@@ -23,24 +23,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-emerald-800">
-      {/* Header */}
-      <div className="bg-cream rounded-lg mx-4 mt-4 p-4 flex justify-between items-center">
-        <h2 className="text-purple-700 text-2xl font-bold">My Feeling Pal</h2>
-        <div className="flex gap-4">
-          <button className="text-purple-700">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-          <button className="text-purple-700">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </button>
-        </div>
-      </div>
-
+    <div className="home-container">
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 pt-12">
         <h1
@@ -62,14 +45,14 @@ const Home = () => {
                   <img
                     src={feeling.icon}
                     alt={feeling.label}
-                    className="w-24 h-24 drop-shadow-lg"
+                    className="w-36 h-36 drop-shadow-lg"
                   />
                 </div>
                 <div
                   className="w-24 h-10 bg-[#FEFCEA] rounded-[8px] drop-shadow-lg 
                     flex items-center justify-center"
                 >
-                  <span className={`${feeling.color} font-bold text-lg`}>
+                  <span className={`${feeling.color} font-bold text-lg font-Source Serif Pro`}>
                     {feeling.label}
                   </span>
                 </div>
@@ -83,7 +66,7 @@ const Home = () => {
             <button
               onClick={() => setSelectedFeeling(null)}
               style={{ color: '#FEFAE0' }}
-              className="px-6 py-2 bg-cream hover:bg-purple-700 rounded-full 
+              className="px-6 py-2 bg-cream hover:bg-cream-700 rounded-full 
                 transition-colors duration-300"
             >
               Choose Another Feeling

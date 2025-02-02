@@ -1,0 +1,4 @@
+.home-container {
+  @apply min-h-screen min-w-screen;
+  background: var(--secondary);
+}
