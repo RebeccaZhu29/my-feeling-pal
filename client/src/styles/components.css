@@ -1,0 +1,44 @@
+.login-button {
+  @apply bg-[#7B2869] text-white text-xl h-[40px] w-[160px] rounded-[20px] shadow-md hover:bg-[#6a225c] transition-colors duration-300 flex items-center justify-center;
+  background: var(--primary);
+}
+
+/* .login-button:hover {
+  background: var(--primary);
+} */
+
+.input {
+  @apply w-full px-4 py-2 border-2 border-[#7B2869] rounded-lg;
+}
+
+.navbar-container {
+  @apply min-w-screen py-8 px-10 flex justify-center items-center;
+  background: var(--secondary);
+}
+
+.navbar-inner-container {
+  @apply py-3 px-10 flex flex-grow-1 justify-between items-center rounded-lg;
+  background: var(--background);
+}
+
+.navbar-title {
+  @apply text-2xl font-bold mb-0;
+  color: var(--primary);
+  font-family: serif;
+}
+
+.navbar-button {
+  @apply w-10 h-10 rounded-lg flex items-center justify-center;
+}
+
+.navbar-button img {
+  @apply w-6 h-6;
+}
+
+.navbar-button:hover {
+  background: var(--primary);
+}
+
+.navbar-button:hover img {
+  filter: brightness(0) invert(1);
+}

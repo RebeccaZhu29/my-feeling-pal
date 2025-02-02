@@ -10,7 +10,8 @@ export default {
         'cream': '#FAF3E1',
         'title-cream': '#FEFAE0',
         'emerald': {
-          800: '#0F4C44',
+          800: '#0D4F42',
+          
         },
         'purple': {
           700: '#7B2869',

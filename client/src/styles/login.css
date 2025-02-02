@@ -1,0 +1,7 @@
+.login-container {
+  @apply min-h-screen min-w-screen bg-[#FAF3E1] flex flex-col items-center pt-8;
+}
+
+.login-form {
+  @apply flex flex-col items-center;
+}
