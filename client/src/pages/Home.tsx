@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import happyIcon from '../assets/happy.png';
 import sadIcon from '../assets/sad.png';
 import tiredIcon from '../assets/tired.png';
@@ -17,9 +18,11 @@ const feelings = [
 
 const Home = () => {
   const [selectedFeeling, setSelectedFeeling] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-  const handleFeelingClick = (type: string) => {
-    setSelectedFeeling(type);
+  const handleFeelingClick = (feeling: string) => {
+    // Add logic to save the feeling
+    navigate('/notes');
   };
 
   return (
