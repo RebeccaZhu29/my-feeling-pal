@@ -1,5 +1,6 @@
 import OpenAI from 'openai';
 import dotenv from 'dotenv';
+
 import { FeelingType } from '../models/Feeling';
 dotenv.config();
 
@@ -7,10 +8,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
-interface WellbeingTipOptions {
-  feelingType: FeelingType;
-  description: string;
-}
+
 
 // Default tips in case API fails
 const defaultTips: Record<FeelingType, string> = {
@@ -22,9 +20,9 @@ const defaultTips: Record<FeelingType, string> = {
   calm: 'Embrace this peaceful moment. Consider doing something you enjoy while maintaining this balanced state.'
 };
 
-export const generateWellbeingTip = async ({ feelingType, description }: WellbeingTipOptions): Promise<string> => {
+export const generateWellbeingTip = async (feelingType: FeelingType): Promise<string> => {
   try {
-    const prompt = `Generate a 50-word wellbeing tip for someone who is feeling ${feelingType}. Their note says: "${description}". The tip should be supportive and actionable.`;
+    const prompt = `Generate a 50-word wellbeing tip for someone who is feeling ${feelingType}.`;
 
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",

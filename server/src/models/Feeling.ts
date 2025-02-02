@@ -4,7 +4,6 @@ interface IFeeling extends Document {
   feelingId: string;
   feelingType: FeelingType;
   description: string;
-  wellbeingTip: string;
   date: Date;
 }
 
@@ -21,10 +20,6 @@ const feelingSchema = new Schema<IFeeling>({
     enum: ['happy', 'sad', 'angry', 'tired', 'worried', 'calm']
   },
   description: {
-    type: String,
-    required: false
-  },
-  wellbeingTip: {
     type: String,
     required: false
   },
