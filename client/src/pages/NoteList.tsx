@@ -3,6 +3,9 @@ import AppNavbar from '../components/Navbar';
 import trashIcon from '../assets/Trash.png';
 import editIcon from '../assets/Edit.png';
 import addIcon from '../assets/Add.png';
+import { useQuery } from '@apollo/client';
+import { QUERY_FEELINGS } from '../utils/queries';
+import auth from '../utils/auth';
 
 interface Note {
   id: number;
@@ -15,42 +18,26 @@ const NoteList = () => {
   const [notes, setNotes] = useState<Note[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const generateAITip = async (feeling: string) => {
-    try {
-      const response = await fetch('http://localhost:3000/api/generate-tip', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          feeling,
-          prompt: `Generate a 50-word wellbeing tip for someone who is feeling ${feeling}. The tip should be supportive and actionable.`
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to generate AI tip');
-      }
-
-      const data = await response.json();
-      return data.tip;
-    } catch (error) {
-      console.error('Error generating AI tip:', error);
-      return 'AI tip unavailable at the moment.';
-    }
-  };
+  // const { loading, error, data } = useQuery(QUERY_FEELINGS);
 
   useEffect(() => {
     const initializeNotes = async () => {
       const currentFeeling = localStorage.getItem('currentFeeling') || 'Happy';
-      const aiTip = await generateAITip(currentFeeling);
+      // const aiTip = await generateAITip(currentFeeling);
+
+      // get token
+      const token = auth.loggedIn() ? auth.getToken() : null;
+
+      if (!token) {
+        return false;
+      }
 
       const newNotes = [
         {
           id: 1,
           date: new Date().toLocaleString(),
           feeling: `I am feeling ${currentFeeling.toLowerCase()}`,
-          aiTip
+          // aiTip
         },
         {
           id: 2,

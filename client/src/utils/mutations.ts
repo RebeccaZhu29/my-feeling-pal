@@ -24,6 +24,41 @@ export const ADD_USER = gql`
   }
 `;
 
+export const ADD_FEELING = gql`
+  mutation addFeeling($feelingData: FeelingInput!) {
+    addFeeling(feelingData: $feelingData) {
+      _id
+      username
+    }
+  }
+`;
+
+export const UPDATE_FEELING = gql`
+  mutation updateFeeling($feelingData: UpdateFeelingInput!) {
+    updateFeeling(feelingData: $feelingData) {
+      _id
+      username
+    }
+  }
+`;
+
+export const REMOVE_FEELING = gql`
+  mutation removeFeeling($feelingId: ID!) {
+    removeFeeling(feelingId: $feelingId) {
+      _id
+      username
+    }
+  }
+`;
+
+export const GENERATE_TIP = gql`
+  mutation generateTip($feelingType: FeelingType!) {
+    generateTip(feelingType: $feelingType) {
+      tip
+    }
+  }
+`;
+
 export const SAVE_BOOK = gql`
   mutation saveBook($bookData: BookInput!) {
     saveBook(bookData: $bookData) {

@@ -6,14 +6,24 @@ export const QUERY_ME = gql`
       _id
       username
       email
-      savedBooks {
-        bookId
-        authors
-        image
+      savedFeelings {
+        feelingId
+        feelingType
         description
-        title
-        link
+        date
       }
+      wellnessTips
+  }
+`;
+
+
+export const QUERY_FEELINGS = gql`
+  {
+    feelings {
+      feelingId
+      feelingType
+      description
+      date
     }
   }
 `;

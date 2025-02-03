@@ -26,8 +26,8 @@ class AuthService {
       const decoded = jwtDecode<UserToken>(token);
       if (decoded.exp < Date.now() / 1000) {
         return true;
-      } 
-      
+      }
+
       return false;
     } catch (err) {
       return false;
@@ -42,7 +42,7 @@ class AuthService {
   login(idToken: string) {
     // Saves user token to localStorage
     localStorage.setItem('id_token', idToken);
-    window.location.assign('/');
+    window.location.assign('/home');
   }
 
   logout() {
@@ -54,4 +54,3 @@ class AuthService {
 }
 
 export default new AuthService();
- 
