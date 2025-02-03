@@ -1,61 +1,96 @@
 import { useState, useEffect } from 'react';
 import AppNavbar from '../components/Navbar';
-import addIcon from '../assets/Add.png';
-import { useQuery } from '@apollo/client';
-import { QUERY_FEELINGS } from '../utils/queries';
+import { useQuery, useMutation } from '@apollo/client';
+import { QUERY_FEELINGS_AND_WELLBEING } from '../utils/queries';
 import auth from '../utils/auth';
 import { Feeling } from '../models/Feeling';
 import NoteItem from '../components/NoteItem';
-
+import { REMOVE_FEELING, UPDATE_FEELING } from '../utils/mutations';
 
 const NoteList = () => {
   const [notes, setNotes] = useState<Feeling[]>([]);
 
-  const { loading, error, data } = useQuery(QUERY_FEELINGS);
+  const [wellbeingTip, setWellbeingTip] = useState<string>('');
+
+  const { loading, error, data, refetch } = useQuery(QUERY_FEELINGS_AND_WELLBEING);
+
+  const [deleteFeeling, { error: deleteError }] = useMutation(REMOVE_FEELING, {
+    refetchQueries: [{ query: QUERY_FEELINGS_AND_WELLBEING }],
+  });
+
+  const [updateFeeling, { error: updateError }] = useMutation(UPDATE_FEELING, {
+    refetchQueries: [{ query: QUERY_FEELINGS_AND_WELLBEING }],
+  });
+
+  const initializeNotes = async () => {
+    // get token
+    const token = auth.loggedIn() ? auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+    refetch();
+  };
 
   useEffect(() => {
-    const initializeNotes = async () => {
-      // get token
-      const token = auth.loggedIn() ? auth.getToken() : null;
-
-      if (!token) {
-        return false;
-      }
-    };
-
     initializeNotes();
   }, []);
 
   useEffect(() => {
-    if (data) {
-      setNotes(data.feelings);
+    console.log('data is updated', data);
+    if (data?.feelingsAndWellbeing) {
+      const feelings = [...data.feelingsAndWellbeing.feelings].sort((a: Feeling, b: Feeling) => new Date(Number(b.date)).getTime() - new Date(Number(a.date)).getTime());
+      setNotes(feelings);
+      setWellbeingTip(data.feelingsAndWellbeing.wellbeingTip);
     }
   }, [data]);
 
+  const handleDelete = async (noteId: string) => {
+    console.log('Deleting note with ID:', noteId);
+    await deleteFeeling({
+      variables: {
+        feelingId: noteId,
+      },
+    })
+  };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  const handleUpdate = async (updatedNote: Feeling) => {
+    console.log('Updating note:', updatedNote);
+    await updateFeeling({
+      variables: {
+        feelingData: {
+          feelingId: updatedNote.feelingId,
+          description: updatedNote.description,
+        },
+      },
+    });
+  };
 
   return (
-    <div className="min-h-screen bg-emerald-800">
+    <div className="note-list-container">
       <AppNavbar />
-
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <div className="space-y-4">
-          {notes.map((note) => (
-            <NoteItem key={note.feelingId} note={note} />
+      <div className="main-container flex-1">
+        <div className="feelings-container">
+          {notes && notes.map((note, index) => (
+            <NoteItem
+              isFirst={index === 0}
+              key={note.feelingId}
+              note={note}
+              onDelete={() => handleDelete(note.feelingId)}
+              onUpdate={(newNote) => handleUpdate(newNote)}
+            />
           ))}
+        </div>
+
+        <div className="wellbeing-tip-container">
+          <h2>Wellbeing Tip</h2>
+          <div>
+            {wellbeingTip}
+          </div>
         </div>
       </div>
     </div>
   );
 };
-
-
 
 export default NoteList;

@@ -28,7 +28,7 @@ const userSchema = new Schema<IUser>(
       type: String,
       required: true,
     },
-    // set savedBooks to be an array of data that adheres to the bookSchema
+    // set savedFeelings to be an array of data that adheres to the feelingSchema
     savedFeelings: [feelingSchema],
     wellbeingTip: {
       type: String,
@@ -57,11 +57,6 @@ userSchema.pre<IUser>('save', async function (next) {
 userSchema.methods.isCorrectPassword = async function (password: string): Promise<boolean> {
   return await bcrypt.compare(password, this.password);
 };
-
-// when we query a user, we'll also get another field called `bookCount` with the number of saved books we have
-userSchema.virtual('feelingCount').get(function (this: IUser) {
-  return this.savedFeelings.length;
-});
 
 const User = model<IUser>('User', userSchema);
 export { type IUser, userSchema };

@@ -1,4 +1,5 @@
 .home-container {
-  @apply min-h-screen min-w-screen;
+  @apply flex-1 min-h-screen;
   background: var(--secondary);
 }
+
