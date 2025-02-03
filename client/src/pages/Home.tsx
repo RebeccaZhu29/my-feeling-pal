@@ -6,8 +6,13 @@ import tiredIcon from '../assets/tired.png';
 import calmIcon from '../assets/calm.png';
 import worriedIcon from '../assets/worried.png';
 import angryIcon from '../assets/angry.png';
+import { useMutation } from '@apollo/client';
+import { ADD_FEELING, GENERATE_TIP } from '../utils/mutations';
+import auth from '../utils/auth';
 
-const feelings = [
+type FeelingType = 'happy' | 'sad' | 'tired' | 'calm' | 'worried' | 'angry';
+
+const feelings: { type: FeelingType; label: string; icon: string; color: string }[] = [
   { type: 'happy', label: 'Happy', icon: happyIcon, color: 'text-emerald-800' },
   { type: 'sad', label: 'Sad', icon: sadIcon, color: 'text-emerald-800' },
   { type: 'tired', label: 'Tired', icon: tiredIcon, color: 'text-emerald-800' },
@@ -19,10 +24,40 @@ const feelings = [
 const Home = () => {
   const [selectedFeeling, setSelectedFeeling] = useState<string | null>(null);
   const navigate = useNavigate();
+  const [addFeeling, { error }] = useMutation(ADD_FEELING);
+  const [generateTip, { error: tipError }] = useMutation(GENERATE_TIP);
 
-  const handleFeelingClick = (feeling: string) => {
+  const handleFeelingClick = (feeling: FeelingType) => {
     // Add logic to save the feeling
-    navigate('/notes');
+    // get token
+    const token = auth.loggedIn() ? auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+
+    let i = 0
+
+    // setloading here
+    addFeeling({
+      variables: {
+        feelingData: {
+          feelingType: feeling,
+        },
+      },
+    }).finally(() => i++);
+
+    generateTip({
+      variables: {
+        feelingType: feeling,
+      },
+    }).finally(() => i++);
+
+    while (i >= 2) {
+      navigate('/notes');
+    }
+
+
   };
 
   return (
