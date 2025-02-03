@@ -1,8 +1,9 @@
-import type { Book } from './Book';
+import type { Feeling } from './Feeling';
 
 export interface User {
   username: string | null;
   email: string | null;
   password: string | null;
-  savedBooks: Book[];
+  saveFeelings: Feeling[] | null;
+  wellbeingTip: string | null;
 }
