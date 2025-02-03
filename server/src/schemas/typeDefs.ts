@@ -30,11 +30,6 @@ const typeDefs = gql`
     user: User
   }
 
-  input FeelingInput {
-    feelingType: FeelingType!
-    description: String!
-  }
-
   input UpdateFeelingInput {
     feelingId: ID!
     description: String
@@ -52,7 +47,7 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    addFeeling(feelingData: FeelingInput!): User
+    addFeeling(feelingType: FeelingType!): User
     updateFeeling(feelingData: UpdateFeelingInput!): User
     removeFeeling(feelingId: ID!): User
     generateTip(feelingType: FeelingType!): Tip!

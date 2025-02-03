@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const QUERY_ME = gql`
-  {
+  query getMe {
     me {
       _id
       username
@@ -13,12 +13,13 @@ export const QUERY_ME = gql`
         date
       }
       wellnessTips
+    }
   }
 `;
 
 
 export const QUERY_FEELINGS = gql`
-  {
+  query getFeelings {
     feelings {
       feelingId
       feelingType

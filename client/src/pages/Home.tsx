@@ -9,8 +9,7 @@ import angryIcon from '../assets/angry.png';
 import { useMutation } from '@apollo/client';
 import { ADD_FEELING, GENERATE_TIP } from '../utils/mutations';
 import auth from '../utils/auth';
-
-type FeelingType = 'happy' | 'sad' | 'tired' | 'calm' | 'worried' | 'angry';
+import { FeelingType } from '../models/Feeling';
 
 const feelings: { type: FeelingType; label: string; icon: string; color: string }[] = [
   { type: 'happy', label: 'Happy', icon: happyIcon, color: 'text-emerald-800' },
@@ -26,8 +25,9 @@ const Home = () => {
   const navigate = useNavigate();
   const [addFeeling, { error }] = useMutation(ADD_FEELING);
   const [generateTip, { error: tipError }] = useMutation(GENERATE_TIP);
+  const [loading, setLoading] = useState(false);
 
-  const handleFeelingClick = (feeling: FeelingType) => {
+  const handleFeelingClick = async (feeling: FeelingType) => {
     // Add logic to save the feeling
     // get token
     const token = auth.loggedIn() ? auth.getToken() : null;
@@ -36,29 +36,54 @@ const Home = () => {
       return false;
     }
 
-    let i = 0
-
-    // setloading here
-    addFeeling({
-      variables: {
-        feelingData: {
+    // add loading here
+    setLoading(true);
+    const [feelingResult, tipResult] = await Promise.all([
+      addFeeling({
+        variables: {
           feelingType: feeling,
         },
-      },
-    }).finally(() => i++);
+      }),
+      generateTip({
+        variables: {
+          feelingType: feeling,
+        },
+      }),
+    ]);
 
-    generateTip({
-      variables: {
-        feelingType: feeling,
-      },
-    }).finally(() => i++);
-
-    while (i >= 2) {
-      navigate('/notes');
-    }
-
-
+    setLoading(false);
+    navigate('/notes');
   };
+
+  const renderEmoji = () => (
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 justify-items-center">
+      {feelings.map((feeling) => (
+        selectedFeeling === null || selectedFeeling === feeling.type ? (
+          <div
+            key={feeling.type}
+            className="flex flex-col items-center space-y-4 cursor-pointer"
+            onClick={() => handleFeelingClick(feeling.type)}
+          >
+            <div className="transform transition-transform duration-300 hover:scale-110">
+              <img
+                src={feeling.icon}
+                alt={feeling.label}
+                className="w-36 h-36 drop-shadow-lg"
+              />
+            </div>
+            <div
+              className="w-24 h-10 bg-[#FEFCEA] rounded-[8px] drop-shadow-lg 
+              flex items-center justify-center"
+            >
+              <span className={`${feeling.color} font-bold text-lg font-Source Serif Pro`}>
+                {feeling.label}
+              </span>
+            </div>
+          </div>
+        ) : null
+      ))}
+    </div>
+  )
 
   return (
     <div className="home-container">
@@ -71,35 +96,15 @@ const Home = () => {
           How am I feeling now?
         </h1>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 justify-items-center">
-          {feelings.map((feeling) => (
-            selectedFeeling === null || selectedFeeling === feeling.type ? (
-              <div
-                key={feeling.type}
-                className="flex flex-col items-center space-y-4 cursor-pointer"
-                onClick={() => handleFeelingClick(feeling.type)}
-              >
-                <div className="transform transition-transform duration-300 hover:scale-110">
-                  <img
-                    src={feeling.icon}
-                    alt={feeling.label}
-                    className="w-36 h-36 drop-shadow-lg"
-                  />
-                </div>
-                <div
-                  className="w-24 h-10 bg-[#FEFCEA] rounded-[8px] drop-shadow-lg 
-                    flex items-center justify-center"
-                >
-                  <span className={`${feeling.color} font-bold text-lg font-Source Serif Pro`}>
-                    {feeling.label}
-                  </span>
-                </div>
-              </div>
-            ) : null
-          ))}
-        </div>
+        {loading ?
+          (
+            <div className="flex justify-center items-center h-50">
+              <div className="animate-spin rounded-full h-32 w-32 border-t-5 border-b-5 border-cream text-white"></div>
+            </div>
+          ) :
+          renderEmoji()}
 
-        {selectedFeeling && (
+        {/* {selectedFeeling && (
           <div className="mt-8 text-center">
             <button
               onClick={() => setSelectedFeeling(null)}
@@ -110,7 +115,7 @@ const Home = () => {
               Choose Another Feeling
             </button>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

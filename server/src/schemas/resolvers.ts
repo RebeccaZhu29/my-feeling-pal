@@ -35,16 +35,14 @@ const resolvers = {
       const token = signToken(user.username, user.email, user._id);
       return { token, user };
     },
-    addFeeling: async (_parent: any, { feelingData }: { feelingData: any }, context: IUserContext): Promise<IUser | null> => {
+    addFeeling: async (_parent: any, { feelingType }: { feelingType: FeelingType }, context: IUserContext): Promise<IUser | null> => {
       if (context.user) {
         // Generate the standardized description
-        const description = `I am feeling ${feelingData.feelingType}`;
-
-        // const wellbeingTip = await generateWellbeingTip(feelingData.feelingType);
+        const description = `I am feeling ${feelingType}`;
 
         const newFeeling = await Feeling.create({
           feelingId: new Types.ObjectId().toString(),
-          feelingType: feelingData.feelingType,
+          feelingType,
           description,
           date: new Date()
         });

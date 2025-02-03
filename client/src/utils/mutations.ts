@@ -25,8 +25,8 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_FEELING = gql`
-  mutation addFeeling($feelingData: FeelingInput!) {
-    addFeeling(feelingData: $feelingData) {
+  mutation addFeeling($feelingType: FeelingType!) {
+    addFeeling(feelingType: $feelingType) {
       _id
       username
     }
