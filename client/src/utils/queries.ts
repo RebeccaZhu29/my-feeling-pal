@@ -28,3 +28,17 @@ export const QUERY_FEELINGS = gql`
     }
   }
 `;
+
+export const QUERY_FEELINGS_AND_WELLBEING = gql`
+  query getFeelingsAndWellbeing {
+    feelingsAndWellbeing {
+      feelings {
+        feelingId
+        feelingType
+        description
+        date
+      }
+      wellbeingTip
+    }
+  }
+`;

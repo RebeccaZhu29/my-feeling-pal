@@ -1,6 +1,6 @@
-import { Schema, model, type Document } from 'mongoose';
+import { Schema } from 'mongoose';
 
-interface IFeeling extends Document {
+interface IFeeling {
   feelingId: string;
   feelingType: FeelingType;
   description: string;
@@ -29,6 +29,4 @@ const feelingSchema = new Schema<IFeeling>({
   }
 });
 
-const Feeling = model<IFeeling>('Feeling', feelingSchema);
 export { type IFeeling, feelingSchema, FeelingType };
-export default Feeling;

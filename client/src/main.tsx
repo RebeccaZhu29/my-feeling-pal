@@ -6,7 +6,6 @@ import App from './App.jsx'
 import Home from './pages/Home.js'
 import Login from './pages/Login.js'
 import NoteList from './pages/NoteList.js'
-import Navbar from './components/Navbar.js'
 
 const router = createBrowserRouter([
   {
@@ -20,11 +19,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/home',
-        element:
-          <>
-            <Navbar />
-            <Home />
-          </>
+        element: <Home />
       },
       {
         path: '/notes',

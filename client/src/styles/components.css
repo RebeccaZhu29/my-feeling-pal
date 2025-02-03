@@ -12,7 +12,7 @@
 }
 
 .navbar-container {
-  @apply min-w-screen py-8 px-10 flex justify-center items-center;
+  @apply py-8 px-10 flex justify-center items-center;
   background: var(--secondary);
 }
 
@@ -41,4 +41,45 @@
 
 .navbar-button:hover img {
   filter: brightness(0) invert(1);
+}
+
+.note-item {
+  @apply rounded-lg p-[20px] shadow-lg;
+  background: var(--background);
+}
+
+.first-note-item {
+  @apply mr-[-40px] pr-[60px] rounded-r-none shadow-none;
+  background: var(--background-secondary);
+}
+
+.note-item-header {
+  @apply flex justify-between items-start mb-4;
+}
+
+.note-item-date {
+  @apply font-['Source_Serif_Pro'];
+  color: var(--primary);
+}
+
+.note-item-button {
+  @apply hover:opacity-70 transition-opacity;
+}
+
+.note-item-button {
+  @apply hover:opacity-70 transition-opacity;
+}
+
+.note-item-content {
+  @apply text-lg font-['Source_Serif_Pro'] p-2;
+  color: var(--primary);
+}
+
+.button-icon {
+  @apply w-5 h-5;
+}
+
+.note-item-content-input {
+  @apply bg-white rounded-lg text-lg font-['Source_Serif_Pro'] p-2 self-stretch;
+  color: var(--primary);
 }

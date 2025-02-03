@@ -39,16 +39,22 @@ const typeDefs = gql`
     tip: String!
   }
 
+  type FeelingsAndWellbeingResponse {
+    feelings: [Feeling]
+    wellbeingTip: String
+  }
+
   type Query {
     me: User
     feelings: [Feeling]
+    feelingsAndWellbeing: FeelingsAndWellbeingResponse
   }
 
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    addFeeling(feelingType: FeelingType!): User
-    updateFeeling(feelingData: UpdateFeelingInput!): User
+    addFeeling(feelingType: FeelingType!): Feeling
+    updateFeeling(feelingData: UpdateFeelingInput!): Feeling
     removeFeeling(feelingId: ID!): User
     generateTip(feelingType: FeelingType!): Tip!
   }

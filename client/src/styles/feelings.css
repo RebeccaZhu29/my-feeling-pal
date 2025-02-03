@@ -1,0 +1,32 @@
+
+.note-list-container {
+  @apply flex flex-col min-h-screen;
+  background: var(--secondary);
+}
+
+.main-container {
+  @apply flex flex-row gap-10 mx-10 my-10;
+}
+
+.feelings-container {
+  @apply space-y-4 flex-1;
+}
+
+.wellbeing-tip-container {
+  @apply flex-1 rounded-lg rounded-tl-none;
+  background: var(--background-secondary);
+  padding: 20px;
+  box-shadow: 0 0 10px 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.wellbeing-tip-container h2 {
+  @apply text-2xl font-bold;
+  color: var(--primary);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.wellbeing-tip-container div {
+  @apply text-[18px] font-bold;
+  color: var(--secondary);
+}

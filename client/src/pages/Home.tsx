@@ -10,6 +10,7 @@ import { useMutation } from '@apollo/client';
 import { ADD_FEELING, GENERATE_TIP } from '../utils/mutations';
 import auth from '../utils/auth';
 import { FeelingType } from '../models/Feeling';
+import AppNavbar from '../components/Navbar';
 
 const feelings: { type: FeelingType; label: string; icon: string; color: string }[] = [
   { type: 'happy', label: 'Happy', icon: happyIcon, color: 'text-emerald-800' },
@@ -87,6 +88,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
+      <AppNavbar />
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 pt-12">
         <h1
@@ -103,19 +105,6 @@ const Home = () => {
             </div>
           ) :
           renderEmoji()}
-
-        {/* {selectedFeeling && (
-          <div className="mt-8 text-center">
-            <button
-              onClick={() => setSelectedFeeling(null)}
-              style={{ color: '#FEFAE0' }}
-              className="px-6 py-2 bg-cream hover:bg-cream-700 rounded-full 
-                transition-colors duration-300"
-            >
-              Choose Another Feeling
-            </button>
-          </div>
-        )} */}
       </div>
     </div>
   );
