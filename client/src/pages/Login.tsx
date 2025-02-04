@@ -6,33 +6,37 @@ import calmIcon from '../assets/calm.png';
 import worriedIcon from '../assets/worried.png';
 import angryIcon from '../assets/angry.png';
 import Auth from '../utils/auth';
-import { LOGIN_USER } from '../utils/mutations';
+import { LOGIN_USER, ADD_USER } from '../utils/mutations';
 import { useMutation } from '@apollo/client';
 
-const Login = () => {
-  const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-  });
+export default function Login() {
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [isLogin, setIsLogin] = useState(true);
 
   const [login, { error }] = useMutation(LOGIN_USER);
-  
+  const [addUser] = useMutation(ADD_USER);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
 
     try {
-      const { data } = await login({
-        variables: {
-          email: formData.username,
-          password: formData.password,
-        },
-      });
-  
-      Auth.login(data.login.token);
+      if (isLogin) {
+        const { data } = await login({ variables: formData });
+        Auth.login(data.login.token);
+      } else {
+        const { data } = await addUser({ variables: formData });
+        Auth.login(data.addUser.token);
+      }
     } catch (err) {
       console.error(err);
-    }    
+    }
   };
 
   return (
@@ -55,8 +59,9 @@ const Login = () => {
           <input
             type="text"
             placeholder='Username'
-            value={formData.username}
-            onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
             className="input"
           />
         </div>
@@ -65,24 +70,27 @@ const Login = () => {
           <input
             type="password"
             placeholder='Password'
+            name="password"
             value={formData.password}
-            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+            onChange={handleInputChange}
             className="input"
           />
         </div>
+
         <p className='text-red-500'>{error ? 'Invalid username or password' : ''}</p>
-        <button className='login-button' type="submit">Log In</button>
+
+        <button className='login-button' type="submit">
+          {isLogin ? 'Login' : 'Sign Up'}
+        </button>
 
         <button
-          className='login-button'
-          onClick={() => window.location.href = '/signup'}
+          className='signup-login-switch-button'
+          onClick={() => setIsLogin(!isLogin)}
           type="button"
         >
-          Sign Up
+          {isLogin ? 'Need to Sign Up?' : 'Already have an account?'}
         </button>
       </form>
     </div>
   );
-};
-
-export default Login;  
+}  

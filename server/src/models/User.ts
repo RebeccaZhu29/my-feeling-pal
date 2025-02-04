@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt';
 import { type IFeeling, feelingSchema } from './Feeling.js';
 
 interface IUser extends Document {
-  username: string;
   email: string;
   password: string;
   savedFeelings: IFeeling[];
@@ -13,11 +12,6 @@ interface IUser extends Document {
 
 const userSchema = new Schema<IUser>(
   {
-    username: {
-      type: String,
-      required: true,
-      unique: true,
-    },
     email: {
       type: String,
       required: true,
@@ -28,17 +22,10 @@ const userSchema = new Schema<IUser>(
       type: String,
       required: true,
     },
-    // set savedFeelings to be an array of data that adheres to the feelingSchema
     savedFeelings: [feelingSchema],
     wellbeingTip: {
       type: String,
       required: false
-    },
-  },
-  // set this to use virtual below
-  {
-    toJSON: {
-      virtuals: true,
     },
   }
 );

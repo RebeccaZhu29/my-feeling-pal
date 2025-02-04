@@ -38,7 +38,7 @@ const resolvers = {
   Mutation: {
     addUser: async (_parent: any, args: any): Promise<{ token: string; user: IUser }> => {
       const user = await User.create(args);
-      const token = signToken(user.username, user.email, user._id);
+      const token = signToken(user.email, user._id);
 
       return { token, user };
     },
@@ -49,7 +49,7 @@ const resolvers = {
         throw new AuthenticationError('Invalid credentials');
       }
 
-      const token = signToken(user.username, user.email, user._id);
+      const token = signToken(user.email, user._id);
       return { token, user };
     },
     addFeeling: async (_parent: any, { feelingType }: { feelingType: FeelingType }, context: IUserContext): Promise<IFeeling | null> => {
