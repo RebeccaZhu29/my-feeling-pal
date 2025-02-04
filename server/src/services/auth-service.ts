@@ -30,8 +30,8 @@ if (!process.env.JWT_SECRET_KEY) {
   throw new Error('JWT_SECRET_KEY must be defined in environment variables');
 }
 
-export const signToken = (username: string, email: string, _id: unknown) => {
-  const payload = { username, email, _id };
+export const signToken = (email: string, _id: unknown) => {
+  const payload = {email, _id };
   const secretKey: any = process.env.JWT_SECRET_KEY;
 
   return jwt.sign({ data: payload }, secretKey, { expiresIn: '2h' });
