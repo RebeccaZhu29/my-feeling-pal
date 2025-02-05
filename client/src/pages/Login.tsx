@@ -43,8 +43,8 @@ export default function Login() {
     <div className="login-container">
       <h1>My Feeling Pal</h1>
 
-      {/* Emoji Row */}
-      <div className="flex gap-4 mb-12">
+      {/* Emoji Grid */}
+      <div className="emoji-grid">
         <img src={happyIcon} alt="Happy" className="emoji" />
         <img src={sadIcon} alt="Sad" className="emoji" />
         <img src={tiredIcon} alt="Tired" className="emoji" />
@@ -54,8 +54,8 @@ export default function Login() {
       </div>
 
       {/* Login Form */}
-      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-6 w-full max-w-xs">
-        <div className="w-full">
+      <form onSubmit={handleSubmit} className="form-container">
+        <div className="input-container">
           <input
             type="text"
             placeholder='Username'
@@ -66,7 +66,7 @@ export default function Login() {
           />
         </div>
 
-        <div className="w-full">
+        <div className="input-container">
           <input
             type="password"
             placeholder='Password'
@@ -77,19 +77,21 @@ export default function Login() {
           />
         </div>
 
-        <p className='text-red-500'>{error ? 'Invalid username or password' : ''}</p>
+        <p className='text-red-500 mb-4'>{error ? 'Invalid username or password' : ''}</p>
 
-        <button className='login-button' type="submit">
-          {isLogin ? 'Login' : 'Sign Up'}
-        </button>
+        <div className="button-container">
+          <button className='login-button' type="submit">
+            {isLogin ? 'Login' : 'Sign Up'}
+          </button>
 
-        <button
-          className='signup-login-switch-button'
-          onClick={() => setIsLogin(!isLogin)}
-          type="button"
-        >
-          {isLogin ? 'Need to Sign Up?' : 'Already have an account?'}
-        </button>
+          <button
+            className='signup-login-switch-button'
+            onClick={() => setIsLogin(!isLogin)}
+            type="button"
+          >
+            {isLogin ? 'Need to Sign Up?' : 'Already have an account?'}
+          </button>
+        </div>
       </form>
     </div>
   );

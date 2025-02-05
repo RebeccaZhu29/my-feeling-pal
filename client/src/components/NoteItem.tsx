@@ -5,7 +5,7 @@ import saveIcon from '../assets/save.png';
 import cancelIcon from '../assets/cancel.png';
 import { useState } from "react";
 
-const NoteItem = ({ note, onDelete, onUpdate, isFirst = false }: { note: Feeling, onDelete: () => void, onUpdate: (note: Feeling) => void, isFirst: boolean }) => {
+const NoteItem = ({ note, onDelete, onUpdate }: { note: Feeling, onDelete: () => void, onUpdate: (note: Feeling) => void }) => {
 
   const [isEditing, setEditing] = useState(false);
   const [editedNote, setEditedNote] = useState(note);
@@ -38,9 +38,8 @@ const NoteItem = ({ note, onDelete, onUpdate, isFirst = false }: { note: Feeling
   return (
     <div
       key={note.feelingId}
-      className={`note-item ${isFirst ? 'first-note-item' : ''}`}
+      className="note-item"
     >
-
       <div className="note-item-header">
         <span className="note-item-date">
           {formatTime(note.date)} {formatDate(note.date)}
@@ -66,13 +65,21 @@ const NoteItem = ({ note, onDelete, onUpdate, isFirst = false }: { note: Feeling
         </div>
       </div>
 
-      {!isEditing ?
-        <div className="flex items-center gap-4">
+      <div className="note-item-body">
+        {!isEditing ? (
           <span className="note-item-content">
             {note.description}
           </span>
-        </div> :
-        <input className="note-item-content-input flex-1" autoFocus type="text" value={editedNote.description} onChange={(e) => setEditedNote({ ...editedNote, description: e.target.value })} />}
+        ) : (
+          <input
+            className="note-item-content-input"
+            autoFocus
+            type="text"
+            value={editedNote.description}
+            onChange={(e) => setEditedNote({ ...editedNote, description: e.target.value })}
+          />
+        )}
+      </div>
     </div>
   );
 };

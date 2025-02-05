@@ -54,9 +54,9 @@
   background: var(--background);
 }
 
-.first-note-item {
-  @apply mr-[-40px] pr-[60px] rounded-r-none shadow-none;
-  background: var(--background-secondary);
+.note-item-body {
+  @apply flex items-center;
+  padding: 0 2px;
 }
 
 .note-item-header {
@@ -72,20 +72,27 @@
   @apply hover:opacity-70 transition-opacity;
 }
 
-.note-item-button {
-  @apply hover:opacity-70 transition-opacity;
+.note-item-input-container {
+  @apply px-2; /* Match the content padding */
 }
 
 .note-item-content {
   @apply text-lg font-['Source_Serif_Pro'] p-2;
   color: var(--primary);
+  display: block;
+  width: 100%;
+}
+
+.note-item-content-input {
+  @apply text-lg font-['Source_Serif_Pro'];
+  color: var(--primary);
+  background: var(--background-secondary);
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid var(--primary);
 }
 
 .button-icon {
   @apply w-5 h-5;
-}
-
-.note-item-content-input {
-  @apply bg-white rounded-lg text-lg font-['Source_Serif_Pro'] p-2 self-stretch;
-  color: var(--primary);
 }

@@ -69,23 +69,32 @@ const NoteList = () => {
   return (
     <div className="note-list-container">
       <AppNavbar />
-      <div className="main-container flex-1">
+      <div className="main-container">
         <div className="feelings-container">
-          {notes && notes.map((note, index) => (
-            <NoteItem
-              isFirst={index === 0}
-              key={note.feelingId}
-              note={note}
-              onDelete={() => handleDelete(note.feelingId)}
-              onUpdate={(newNote) => handleUpdate(newNote)}
-            />
-          ))}
+          {loading ? (
+            <div className="flex justify-center items-center h-32">
+              <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-cream"></div>
+            </div>
+          ) : notes && notes.length > 0 ? (
+            notes.map((note) => (
+              <NoteItem
+                key={note.feelingId}
+                note={note}
+                onDelete={() => handleDelete(note.feelingId)}
+                onUpdate={(newNote) => handleUpdate(newNote)}
+              />
+            ))
+          ) : (
+            <div className="text-center text-cream py-8">
+              No feelings recorded yet. Start by adding one!
+            </div>
+          )}
         </div>
 
         <div className="wellbeing-tip-container">
           <h2>Wellbeing Tip</h2>
           <div>
-            {wellbeingTip}
+            {wellbeingTip || 'Record your feelings to get personalized wellbeing tips!'}
           </div>
         </div>
       </div>
