@@ -1,32 +1,112 @@
-
 .note-list-container {
   @apply flex flex-col min-h-screen;
   background: var(--secondary);
 }
 
 .main-container {
-  @apply flex flex-row gap-10 mx-10 my-10;
+  @apply flex flex-col-reverse lg:flex-row gap-6 md:gap-8 p-4 md:p-6 lg:p-10;
 }
 
 .feelings-container {
-  @apply space-y-4 flex-1;
+  @apply space-y-4 w-full lg:w-1/2;
+}
+
+/* First note item - default mobile styling */
+.feelings-container > *:first-child {
+  @apply rounded-lg mb-4 mx-0;
+  background: var(--background-secondary);
+}
+
+/* First note item - desktop layout specific */
+@media (min-width: 1024px) {
+  .feelings-container > *:first-child {
+    @apply rounded-tr-none rounded-br-none mr-[-40px] pr-[60px];
+  }
+}
+
+/* Other note items */
+.feelings-container > *:not(:first-child) {
+  @apply mx-0;
 }
 
 .wellbeing-tip-container {
-  @apply flex-1 rounded-lg rounded-tl-none;
+  @apply w-full lg:w-1/2 rounded-lg lg:rounded-tl-none p-6 md:p-8 lg:sticky h-fit;
   background: var(--background-secondary);
-  padding: 20px;
-  box-shadow: 0 0 10px 10px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+  top: 0;
+}
+
+/* Desktop-specific shadow */
+@media (min-width: 1024px) {
+  .wellbeing-tip-container {
+    box-shadow: 4px 0 6px -1px rgba(0, 0, 0, 0.1);
+  }
 }
 
 .wellbeing-tip-container h2 {
-  @apply text-2xl font-bold;
+  @apply text-xl md:text-2xl font-bold mb-4 md:mb-6;
   color: var(--primary);
-  margin-bottom: 10px;
   text-align: center;
 }
 
 .wellbeing-tip-container div {
-  @apply text-[18px] font-bold;
+  @apply text-base md:text-lg font-medium;
   color: var(--secondary);
+  line-height: 1.6;
+}
+
+/* Note item styles */
+.note-item {
+  @apply bg-white rounded-lg p-4 md:p-6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.note-header {
+  @apply flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-4 mb-4;
+}
+
+.note-timestamp {
+  @apply text-sm md:text-base text-gray-600;
+}
+
+.note-actions {
+  @apply flex items-center gap-2 md:gap-4;
+}
+
+.note-content {
+  @apply w-full;
+}
+
+/* Editing state */
+.note-edit-form {
+  @apply w-full px-4 md:px-6;
+}
+
+.note-edit-input {
+  @apply w-full min-h-[100px] p-3 rounded;
+  background-color: var(--background-secondary);
+  resize: vertical;
+}
+
+.note-edit-container {
+  @apply flex flex-col gap-2 w-full;
+}
+
+.note-edit-buttons {
+  @apply flex justify-end gap-2 mt-2;
+}
+
+.note-edit-button {
+  @apply px-4 py-1 rounded text-sm;
+}
+
+.note-save-button {
+  @apply text-white;
+  background: var(--primary);
+}
+
+.note-cancel-button {
+  @apply border border-gray-300 text-gray-600;
 }
